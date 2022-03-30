@@ -21,7 +21,10 @@ export class TimeframeModel extends Model {
     this.indicators = indicators || [];
   }
 
-  getIndicator = (name: string) => {
-    this.indicators.find((indicator) => indicator.name == name);
+  getIndicator = (name: string): IndicatorType | boolean => {
+    const indicator = this.indicators.find((indicator) => indicator.name == name);
+
+    return indicator ? indicator : false;
+
   };
 }

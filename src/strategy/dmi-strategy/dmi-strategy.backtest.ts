@@ -1,22 +1,13 @@
-// Timeframe -> IndicatorInterface
-//           -> Candlestick
-// BuySignalDmiStrategy
-// SellSignalDmiStrategy
-
-import { BacktestService } from "../../backtest/backtest.service";
-import { CandlestickCollection } from "../../candlestick/candlestick.collection";
 import { CandlestickModel } from "../../candlestick/candlestick.model";
 import { CandlestickService } from "../../candlestick/candlestick.service";
 import { CumulativeReturnIndicator } from "../../indicator/cumulative-return/cumulative-return.indicator";
 import { DmiIndicator } from "../../indicator/dmi/dmi.indicator";
 import { EmaIndicator } from "../../indicator/ema/ema.indicator";
-import { IndicatorInterface } from "../../indicator/indicator.interface";
 import { IndicatorType } from "../../indicator/indicator.type";
 import { InputOrderModel, OrderModel } from "../../order/order.model";
 import { TimeframeCollection } from "../../timeframe/timeframe.collection";
 import { TimeframeModel } from "../../timeframe/timeframe.model";
 import { TradeBacktestModel } from "../../trade/trade-backtest/trade-backtest.model";
-import { TradeModel } from "../../trade/trade.model";
 
 import {
   DMI,
@@ -50,8 +41,6 @@ export class DmiStrategyBacktest {
         currentTimeframes,
         strategy
       );
-
-      // candlesticks -- to --> timeframes...
 
       if (this.openPosition) {
         this.openPositionCandlesticks.push(timeframes[i].candlestick);
@@ -103,13 +92,11 @@ export class DmiStrategyBacktest {
           };
           const trade = new TradeBacktestModel();
           trade.buyOrder = new OrderModel(inputOrderModel);
-          // trade.buyIndicadors = { sma1, sma2, sma3, dmi };
+          trade.buyIndicadors = timeframes[i].indicators;
           this.trades.push(trade);
         }
       }
     }
-
-    BacktestService.print(this.trades);
   };
 
   sellSignal = (timeframes: TimeframeModel[], strategy: StrategyModel) => {

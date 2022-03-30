@@ -19,4 +19,5 @@ export class Collection {
   ): T[keyof T][] {
     return collection.map((element) => element[key]);
   }
+
 }

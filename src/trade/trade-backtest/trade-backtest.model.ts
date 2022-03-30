@@ -1,3 +1,4 @@
+import { IndicatorType } from "../../indicator/indicator.type";
 import { InputTradeModel, TradeModel } from "../trade.model";
 
 export type InputTradeBacktestModel = InputTradeModel & {
@@ -6,12 +7,12 @@ export type InputTradeBacktestModel = InputTradeModel & {
 };
 
 export class TradeBacktestModel extends TradeModel {
-  buyIndicadors: any;
-  sellIndicadors: any;
+  buyIndicadors: IndicatorType[];
+  sellIndicadors: IndicatorType[];
 
   constructor() {
     super();
-    this.buyIndicadors = {};
-    this.sellIndicadors = {};
+    this.buyIndicadors = [];
+    this.sellIndicadors = [];
   }
 }
